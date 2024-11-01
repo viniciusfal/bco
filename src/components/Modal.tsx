@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import { InputField } from './InputField'
+import { useState } from "react";
+import { InputField } from "./InputField";
 
 interface ModalProps {
-  open: boolean
-  onClose: () => void
-  title: string
-  onSave: (initial: number, final: number) => void
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  onSave: (initial: number, final: number) => void;
 }
 
 export function Modal({ open, onClose, title, onSave }: ModalProps) {
-  const [initialValue, setInitialValue] = useState<number>(0)
-  const [finalValue, setFinalValue] = useState<number>(0)
+  const [initialValue, setInitialValue] = useState<number>(0);
+  const [finalValue, setFinalValue] = useState<number>(0);
 
-  if (!open) return null
+  if (!open) return null;
 
   return (
     <div className="inset-0 fixed text-white  flex items-center justify-end pr-2">
@@ -54,5 +54,5 @@ export function Modal({ open, onClose, title, onSave }: ModalProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

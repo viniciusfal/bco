@@ -1,5 +1,5 @@
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export function Select({ children, ...props }: SelectProps) {
@@ -10,5 +10,5 @@ export function Select({ children, ...props }: SelectProps) {
     >
       {children}
     </select>
-  )
+  );
 }
