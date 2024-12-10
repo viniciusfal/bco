@@ -2,6 +2,7 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { CircleGauge, Download } from "lucide-react";
 import { useEffect, useState } from "react";
+import AlertDialog from "./Alert";
 
 interface HeaderProps {
   setRows: (array: any[]) => void;
@@ -9,17 +10,20 @@ interface HeaderProps {
 }
 
 export function Header({ setRows, rows }: HeaderProps) {
-  const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  function clearLocalStorage() {
+  function handleClearLocalStorage() {
     if (isClient) {
       localStorage.removeItem("rows");
       setRows([]);
     }
+
+    setIsDialogOpen(false)
   }
 
   const exportToExcel = () => {
@@ -166,13 +170,22 @@ export function Header({ setRows, rows }: HeaderProps) {
             Salvar em Excel
           </button>
         </div>
+        <AlertDialog
+          isOpen={isDialogOpen}
+          message="Deseja excluir Todas as linhas e começar a sua listagem do Zero?"
+          onCancel={() => setIsDialogOpen(false)}
+          onConfirm={handleClearLocalStorage}
+          title="Deletar Tudo e Começar do Zero"
+        />
+
+
         <button
           className="font-medium text-sm border rounded-md p-2 hover:bg-red-500 transition-colors text-zinc-100"
-          onClick={clearLocalStorage}
+          onClick={() => setIsDialogOpen(true)}
         >
           Começar do Zero
         </button>
       </div>
     </header>
-  );
+  )
 }
