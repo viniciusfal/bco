@@ -1,8 +1,9 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import { CircleGauge, Download } from "lucide-react";
+import { BadgeInfo, Book, BookMarked, CircleGauge, Download } from "lucide-react";
 import { useEffect, useState } from "react";
 import AlertDialog from "./Alert";
+import { ModalInfo } from "./ModalInfo";
 
 interface HeaderProps {
   setRows: (array: any[]) => void;
@@ -12,10 +13,19 @@ interface HeaderProps {
 export function Header({ setRows, rows }: HeaderProps) {
   const [isClient, setIsClient] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isInfoOpen, setIsInfoOpen] = useState(false)
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const handleInfo = () => {
+    setIsInfoOpen(true)
+  }
+
+  const onClose = () => {
+    setIsInfoOpen(false)
+  }
 
   function handleClearLocalStorage() {
     if (isClient) {
@@ -25,6 +35,8 @@ export function Header({ setRows, rows }: HeaderProps) {
 
     setIsDialogOpen(false)
   }
+
+
 
   const exportToExcel = () => {
     const workbook = new ExcelJS.Workbook();
@@ -161,6 +173,9 @@ export function Header({ setRows, rows }: HeaderProps) {
       </div>
 
       <div className="flex gap-2">
+        <button className="bg-[#f0eee928] rounded-lg p-2 mr-2" onClick={handleInfo} >
+          <BookMarked className="text-zinc-400 size-5" />
+        </button>
         <div className="">
           <button
             onClick={exportToExcel}
@@ -178,13 +193,17 @@ export function Header({ setRows, rows }: HeaderProps) {
           title="Deletar Tudo e Começar do Zero"
         />
 
-
         <button
           className="font-medium text-sm border rounded-md p-2 hover:bg-red-500 transition-colors text-zinc-100"
           onClick={() => setIsDialogOpen(true)}
         >
           Começar do Zero
         </button>
+
+        <ModalInfo
+          open={isInfoOpen}
+          onClose={onClose}
+        />
       </div>
     </header>
   )

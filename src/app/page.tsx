@@ -98,6 +98,37 @@ export default function Home() {
     ]);
   }
 
+  function addInheritsRows(e: React.MouseEvent<HTMLButtonElement>) {
+    const previousDay =
+      rows.length > 0
+        ? rows[rows.length - 1].dia
+        : format(new Date(), "yyyy-MM-dd");
+
+
+    setRows([
+      ...rows,
+      {
+        id: (rows.length + 1).toString(),
+        empresa: "Amazonia Inter",
+        cnpj: "12.647.487/0001-88",
+        nomeLinha: rows[rows.length - 1].nomeLinha,
+        prefixo: rows[rows.length - 1].prefixo,
+        codigoLinha: rows[rows.length - 1].codigoLinha,
+        sentido: rows[rows.length - 1].sentido === "GO - DF" ? "DF - GO" : "GO - DF",
+        localOrigem: rows[rows.length - 1].localDestino,
+        localDestino: rows[rows.length - 1].localOrigem,
+        dia: previousDay,
+        horario: "00:00",
+        placa: rows[rows.length - 1].placa,
+        pagantes: 0,
+        idoso: 0,
+        passeLivre: 0,
+      },
+    ])
+    e.preventDefault()
+
+  }
+
   function handleRowChange(index: number, field: string, value: any) {
     const updatedRows = [...rows];
     updatedRows[index] = { ...updatedRows[index], [field]: value };
@@ -405,6 +436,7 @@ export default function Home() {
 
       <button
         onClick={addRow}
+        onContextMenu={addInheritsRows}
         className="w-full focus:outline-none font-medium rounded-sm text-sm px-5 py-2.5 text-[#f5f5f5] hover:bg-zinc-300 hover:text-[#22331d] border-[#f5f5f5] focus:ring-0 transition-colors"
       >
         <CirclePlus className="mx-auto" />

@@ -21,7 +21,7 @@ const AlertDialog: React.FC<AlertDialogProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-[#f0eee9] rounded-lg shadow-lg max-w-sm w-full p-6">
         <h2 className="text-xl font-semibold mb-4">{title}</h2>
-        <p className="text-gray-700 mb-6">{message}</p>
+        <p className="text-gray-700 mb-6 text-sm">{message}</p>
         <div className="flex justify-end gap-4">
           <button
             onClick={onCancel}
